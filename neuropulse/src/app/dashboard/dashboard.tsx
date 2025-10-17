@@ -21,6 +21,7 @@ interface TremorData {
     deviceId: string;
     batteryLevel?: number;
   };
+  userId?: string;
 }
 
 interface Device {
@@ -93,13 +94,31 @@ export default function Dashboard() {
       const deviceId = selectedDeviceId || 'ESP32_MEDICAL_001';
       const hours = selectedTimeRange === '1h' ? 1 : selectedTimeRange === '24h' ? 24 : 168; // 7 days
 
-      const response = await fetch(`/api/tremor?deviceId=${deviceId}&hours=${hours}&limit=200`);
+      // Calculate start date based on selected time range
+      const now = new Date();
+      const startDate = new Date(now.getTime() - (hours * 60 * 60 * 1000)).toISOString();
+
+      const response = await fetch(`/api/tremor?deviceId=${deviceId}&startDate=${startDate}&limit=200`);
 
       if (response.ok) {
         const data = await response.json();
-        setTremorData(data.data || []);
+        console.log('Dashboard data received:', data);
+        // Transform data to ensure proper format for charts
+        const transformedData = (data.data || []).map((item: any) => ({
+          ...item,
+          // Ensure timestamp is properly formatted for charts
+          timestamp: new Date(item.timestamp).toISOString(),
+          // Ensure numeric values are properly typed
+          frequency: Number(item.frequency),
+          amplitude: Number(item.amplitude),
+          severityIndex: Number(item.severityIndex)
+        }));
+        console.log('Transformed data:', transformedData);
+        setTremorData(transformedData);
         setStatistics(data.statistics || null);
         setLastUpdate(new Date());
+      } else {
+        console.error('Failed to fetch data:', response.status, response.statusText);
       }
     } catch (error) {
       console.error('Error fetching medical data:', error);
@@ -129,7 +148,9 @@ export default function Dashboard() {
                 confidence: 0.8 + Math.random() * 0.15,
                 recommendations: ['Continue monitoring', 'Maintain current routine'],
                 predictedProgression: 'Stable pattern detected'
-              }
+              },
+              deviceId: lastItem.deviceId, // Preserve device info
+              userId: lastItem.userId // Preserve user info
             };
 
             // Keep only last 100 points for performance
@@ -182,14 +203,17 @@ export default function Dashboard() {
 
       if (response.ok) {
         const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = `medical-tremor-report-${new Date().toISOString().split('T')[0]}.${format === 'pdf' ? 'html' : format}`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(downloadUrl);
-        document.body.removeChild(a);
+        // Ensure we're in browser environment before using window APIs
+        if (typeof window !== 'undefined') {
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = `medical-tremor-report-${new Date().toISOString().split('T')[0]}.${format === 'pdf' ? 'html' : format}`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(downloadUrl);
+          document.body.removeChild(a);
+        }
       } else {
         alert('Export failed. Please try again.');
       }

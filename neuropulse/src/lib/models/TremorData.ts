@@ -9,6 +9,7 @@ export interface ITremorData extends Document {
   amplitude: number; // m/s²
   severityIndex: number; // 0-100 scale
   rawData?: {
+    emg?: number[];
     accelerometer?: {
       x: number;
       y: number;
@@ -68,6 +69,7 @@ const tremorDataSchema = new Schema<ITremorData>(
       max: [100, 'Severity index must be between 0 and 100'],
     },
     rawData: {
+      emg: [Number],
       accelerometer: {
         x: Number,
         y: Number,

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Image from "next/image";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import ClientProvider from "./ClientProvider";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +16,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NeuroPulse - Parkinson's Tremor Detector",
-  description: "AI-powered Parkinson's disease tremor monitoring and analysis platform",
+  description: "AI-powered Parkinson's disease tremor monitoring and analysis platform with real-time classification",
+  metadataBase: new URL("https://neuropulse.local"),
+  openGraph: {
+    title: "NeuroPulse",
+    description: "Advanced EMG-based Parkinson's tremor detection with frequency analysis and multi-user dashboards",
+    type: "website",
+  },
+  keywords: [
+    "NeuroPulse",
+    "Parkinson's",
+    "EMG",
+    "Tremor Detection",
+    "AI Healthcare",
+    "Next.js",
+    "Medical Technology",
+  ],
 };
 
 export default function RootLayout({
@@ -30,19 +43,8 @@ export default function RootLayout({
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <div className="fixed top-4 left-4 z-50">
-            <Image
-              src="/next.svg"
-              alt="Next.js Logo"
-              width={100}
-              height={24}
-              className="opacity-80"
-            />
-          </div>
           <ThemeToggle />
-          <ClientProvider>
-            {children}
-          </ClientProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

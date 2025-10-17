@@ -1,48 +1,46 @@
-'use client';
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Brain, Activity, Users, TrendingUp, Clock, Target } from "lucide-react";
 
-const features = [
+const pillars = [
   {
     icon: Brain,
-    title: "AI-Powered Classification",
+    title: "Frequency-Based Classification",
     description:
-      "Advanced machine learning algorithms analyze EMG signals to detect Parkinson's tremor patterns with clinical-grade accuracy.",
+      "Advanced AI algorithms analyze EMG frequency bands (0-12 Hz) to classify Parkinson's tremors with clinical accuracy.",
   },
   {
     icon: Activity,
     title: "Real-time Monitoring",
     description:
-      "Continuous monitoring of frequency, amplitude, and severity with live updates across all dashboards and devices.",
+      "Continuous tremor analysis with live frequency, amplitude, and severity tracking across patient dashboards.",
   },
   {
     icon: Users,
-    title: "Multi-User Support",
+    title: "Multi-User Collaboration",
     description:
-      "Patient, caretaker, and doctor dashboards provide personalized insights and collaborative care management.",
+      "Patient, caretaker, and doctor roles with personalized insights and collaborative Parkinson's management tools.",
   },
 ];
 
 const workflow = [
   {
     label: "01",
-    title: "Connect & Record",
+    title: "Connect biosignals",
     description:
-      "Link ESP32 BioAmp to capture raw EMG data while AI processes signals for frequency-based classification.",
+      "Stream normalized EMG samples from ESP32 / BioAmp devices while frequency analysis processes tremor patterns.",
   },
   {
     label: "02",
-    title: "Train & Learn",
+    title: "Train & classify",
     description:
-      "Record sessions for normal, mild, and severe tremors to train adaptive models that improve over time.",
+      "Record training data for normal, mild, and severe tremors to build adaptive models for accurate classification.",
   },
   {
     label: "03",
-    title: "Monitor & Analyze",
+    title: "Monitor & analyze",
     description:
-      "Access real-time dashboards with insights, trends, and recommendations for optimal Parkinson's management.",
+      "Access real-time dashboards with insights, trends, and AI recommendations for optimal Parkinson's care.",
   },
 ];
 
@@ -88,7 +86,7 @@ export default function Home() {
             <div className="grid gap-4 rounded-2xl border border-border/40 bg-panel/60 p-6 sm:grid-cols-2">
               <div className="flex flex-col gap-1 text-sm text-muted-foreground">
                 <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary/70">Frequency Range</p>
-                <p className="text-lg font-semibold text-primary">0-12 Hz analyzed</p>
+                <p className="text-lg font-semibold text-primary">0 – 12 Hz analyzed</p>
               </div>
               <div className="flex flex-col gap-1 text-sm text-muted-foreground">
                 <p className="font-mono text-xs uppercase tracking-[0.25em] text-primary/70">Accuracy</p>
@@ -133,7 +131,7 @@ export default function Home() {
         </section>
 
         <section id="features" className="grid gap-10 sm:grid-cols-3">
-          {features.map(({ icon: Icon, title, description }) => (
+          {pillars.map(({ icon: Icon, title, description }) => (
             <article key={title} className="glass flex flex-col gap-4 px-6 py-8">
               <div className="inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon className="size-6" />
