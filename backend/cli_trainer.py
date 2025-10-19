@@ -394,7 +394,8 @@ class EMGTrainer:
                                 'confidence': confidence,
                                 'frequency': features['dominant_frequency'],
                                 'amplitude': features['rms'],
-                                'timestamp': time.time()
+                                'timestamp': time.time(),
+                                'raw_emg': list(recent_data)[-100:]  # Last 100 raw samples for plotting
                             })
 
         ani = animation.FuncAnimation(self.fig, animate, interval=100, blit=False)

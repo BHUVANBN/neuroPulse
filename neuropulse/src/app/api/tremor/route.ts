@@ -70,10 +70,10 @@ async function handleLocalClassification(body: any) {
 
   // Map classification to severity index
   const severityMap = {
-    'NORMAL': 10,
-    'MILD': 25,
-    'MODERATE': 50,
-    'SEVERE': 80
+    'NORMAL': 5,
+    'MILD': 12,
+    'MODERATE': 18,
+    'SEVERE': 25
   };
 
   const severityIndex = severityMap[classification as keyof typeof severityMap] || 0;
@@ -87,13 +87,11 @@ async function handleLocalClassification(body: any) {
     amplitude: parseFloat(amplitude) || 0,
     severityIndex: severityIndex,
     rawData: {
-      emg: [], // No raw EMG data for local classification
-      localClassification: classification,
-      rms: parseFloat(rms) || 0
+      emg: Array.isArray(body?.raw_emg) ? body.raw_emg.slice(0, 100) : [], // Use raw_emg from body
     },
     aiInsights: {
       pattern: classification.toLowerCase(),
-      confidence: 0.95, // High confidence for local classification
+      confidence: body?.confidence || 0.95, // Use confidence from body
       recommendations: getRecommendationsForClassification(classification),
       predictedProgression: getProgressionForClassification(classification)
     }
@@ -111,10 +109,11 @@ async function handleLocalClassification(body: any) {
     severityIndex: tremorData.severityIndex,
     frequency: tremorData.frequency,
     amplitude: tremorData.amplitude,
-    confidence: 0.95,
+    confidence: body?.confidence || 0.95,
     aiInsights: tremorData.aiInsights,
     timestamp: tremorData.timestamp,
     batteryLevel: device.batteryLevel,
+    rawEmg: body?.raw_emg || tremorData.rawData.emg // Include raw EMG data
   };
 
   emitRealtimeUpdate(realtimeData);
@@ -132,6 +131,7 @@ async function handleLocalClassification(body: any) {
       aiInsights: tremorData.aiInsights,
       timestamp: tremorData.timestamp,
       batteryLevel: device.batteryLevel,
+      rawEmg: body?.raw_emg || []
     },
   });
 }
@@ -409,6 +409,7 @@ async function handleProcessedData(body: any) {
       aiInsights: tremorData.aiInsights,
       timestamp: tremorData.timestamp,
       batteryLevel: device.batteryLevel,
+      rawEmg: body?.raw_emg || []
     },
   });
 }

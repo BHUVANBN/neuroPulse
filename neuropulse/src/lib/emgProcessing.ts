@@ -156,11 +156,11 @@ export function extractEMGFeatures(
   const frequency = dominantFrequency;
   const amplitude = rmsAmplitude;
 
-  // Severity index (0-100 scale) - combine multiple factors
-  const severityIndex = Math.min(100, Math.max(0,
-    (rmsAmplitude / 100) * 50 +  // Amplitude contribution
-    (dominantFrequency / 10) * 30 +  // Frequency contribution
-    (zeroCrossingRate * 100) * 20    // Complexity contribution
+  // Severity index (0-100 scale) - adjusted for normal readings
+  const severityIndex = Math.min(30, Math.max(0,
+    (rmsAmplitude / 200) * 10 +  // Reduced amplitude contribution
+    (dominantFrequency / 20) * 10 +  // Reduced frequency contribution
+    (zeroCrossingRate * 50) * 10    // Reduced complexity contribution
   ));
 
   return {
@@ -240,13 +240,13 @@ export function generateEMGInsights(features: ProcessedEMGFeatures): {
   let pattern: 'normal' | 'mild' | 'moderate' | 'severe' = 'normal';
   let confidence = 0.5;
 
-  if (features.severityIndex > 70) {
+  if (features.severityIndex > 20) {
     pattern = 'severe';
     confidence = Math.min(0.95, 0.7 + (features.signalVariance / 1000));
-  } else if (features.severityIndex > 40) {
+  } else if (features.severityIndex > 15) {
     pattern = 'moderate';
     confidence = Math.min(0.90, 0.6 + (features.dominantFrequency / 15));
-  } else if (features.severityIndex > 20) {
+  } else if (features.severityIndex > 10) {
     pattern = 'mild';
     confidence = Math.min(0.85, 0.5 + (features.rmsAmplitude / 50));
   } else {

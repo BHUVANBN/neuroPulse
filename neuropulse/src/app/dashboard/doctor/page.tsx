@@ -50,7 +50,7 @@ export default function DoctorDashboard() {
       const mockPatients: PatientData[] = [
         {
           _id: '1',
-          name: 'John Smith',
+          name: 'Bhuvan B N',
           age: 68,
           diagnosisDate: '2022-03-15',
           currentSeverity: 25,
@@ -67,7 +67,7 @@ export default function DoctorDashboard() {
         },
         {
           _id: '2',
-          name: 'Sarah Johnson',
+          name: 'test patient',
           age: 72,
           diagnosisDate: '2020-11-22',
           currentSeverity: 65,

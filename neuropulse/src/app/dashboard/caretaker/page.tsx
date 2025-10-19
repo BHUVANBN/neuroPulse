@@ -113,7 +113,7 @@ export default function CaretakerDashboard() {
       const mockPatients: PatientData[] = [
         {
           _id: '1',
-          name: 'John Smith',
+          name: 'Bhuvan B N',
           lastSeen: new Date().toISOString(),
           currentSeverity: 25,
           trend: 'improving',
@@ -126,7 +126,7 @@ export default function CaretakerDashboard() {
         },
         {
           _id: '2',
-          name: 'Sarah Johnson',
+          name: 'test patient',
           lastSeen: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
           currentSeverity: 65,
           trend: 'worsening',
@@ -153,18 +153,18 @@ export default function CaretakerDashboard() {
       {
         id: '1',
         type: 'warning',
-        message: 'Sarah Johnson\'s tremor severity increased by 15% in the last hour',
+        message: 'test patient\'s tremor severity increased by 15% in the last hour',
         timestamp: new Date(Date.now() - 300000).toISOString(),
         patientId: '2',
-        patientName: 'Sarah Johnson'
+        patientName: 'test patient'
       },
       {
         id: '2',
         type: 'info',
-        message: 'John Smith completed daily exercises successfully',
+        message: 'Bhuvan B N completed daily exercises successfully',
         timestamp: new Date(Date.now() - 1800000).toISOString(),
         patientId: '1',
-        patientName: 'John Smith'
+        patientName: 'Bhuvan B N'
       }
     ];
 
@@ -400,10 +400,10 @@ export default function CaretakerDashboard() {
               <p className="text-sm text-muted-foreground mb-2">Recent Messages</p>
               <div className="space-y-2">
                 <div className="text-xs text-muted-foreground">
-                  John: "Feeling better today, thanks for checking in" - 2 hours ago
+                  Bhuvan: "Feeling better today, thanks for checking in" - 2 hours ago
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Sarah: "Need help with medication reminder" - 4 hours ago
+                  test patient: "Need help with medication reminder" - 4 hours ago
                 </div>
               </div>
             </div>

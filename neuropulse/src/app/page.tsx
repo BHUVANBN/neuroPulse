@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Brain, Activity, Users, TrendingUp, Clock, Target } from "lucide-react";
+import { ArrowRight, Brain, Activity, Users, TrendingUp, Clock, Target, Stethoscope, UserCheck } from "lucide-react";
 
 const features = [
   {
@@ -69,14 +69,49 @@ export default function Home() {
               telemetry with frequency analysis to unlock comprehensive Parkinson's monitoring and insights.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                href="/dashboard/patient"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface shadow-[0_12px_48px_rgba(99,102,241,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
-              >
-                Launch Dashboard
-                <ArrowRight className="size-4" />
-              </Link>
+            <div className="flex flex-col items-start gap-4">
+              <div className="text-sm font-semibold text-primary/80">Get Started:</div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface shadow-[0_12px_48px_rgba(99,102,241,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-primary shadow-[0_12px_48px_rgba(14,165,233,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
+                >
+                  Register
+                </Link>
+              </div>
+              <div className="text-sm font-semibold text-primary/80">Or Choose Your Dashboard:</div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href="/dashboard/patient"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-surface shadow-[0_12px_48px_rgba(99,102,241,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
+                >
+                  <Users className="size-4" />
+                  Patient Dashboard
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  href="/dashboard/doctor"
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-primary shadow-[0_12px_48px_rgba(14,165,233,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
+                >
+                  <Stethoscope className="size-4" />
+                  Doctor Dashboard
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  href="/dashboard/caretaker"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-primary shadow-[0_12px_48px_rgba(34,197,94,0.45)] transition hover:translate-y-0.5 hover:brightness-110"
+                >
+                  <UserCheck className="size-4" />
+                  Caretaker Dashboard
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
               <a
                 href="#features"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-primary transition hover:bg-panel/60"
@@ -109,7 +144,7 @@ export default function Home() {
             <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_180deg,_rgba(99,102,241,0.6),_rgba(14,165,233,0.3),_rgba(99,102,241,0.6))] opacity-50 blur-3xl" />
             <div className="glass relative flex h-full min-h-[520px] w-full max-w-md flex-col overflow-hidden">
               <div className="relative h-1/2 w-full">
-                <Image src="/BCI.jpg" alt="EMG monitoring setup" fill className="object-cover" priority />
+                <Image src="/images.jpg" alt="EMG monitoring setup" fill className="object-cover" priority />
               </div>
               <div className="flex flex-1 flex-col items-center justify-between gap-6 px-6 pb-6 pt-6">
                 <div className="inline-flex items-center gap-3 rounded-full bg-muted/40 px-4 py-2 text-sm font-medium text-primary/90">

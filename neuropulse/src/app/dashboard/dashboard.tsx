@@ -136,18 +136,19 @@ export default function Dashboard() {
           const lastItem = newData[newData.length - 1];
 
           if (lastItem) {
-            // Simulate small variations in real-time data
+            // Simulate small variations in real-time data, keeping values mostly in normal range
+            const newSeverityIndex = Math.max(5, Math.min(25, lastItem.severityIndex + (Math.random() - 0.5) * 2)); // Keep severity low (normal range)
             const newPoint: TremorData = {
               _id: Date.now().toString(),
               timestamp: new Date().toISOString(),
               frequency: Math.max(3, Math.min(12, lastItem.frequency + (Math.random() - 0.5) * 0.3)),
               amplitude: Math.max(0.1, Math.min(5, lastItem.amplitude + (Math.random() - 0.5) * 0.2)),
-              severityIndex: Math.max(0, Math.min(100, lastItem.severityIndex + (Math.random() - 0.5) * 5)),
+              severityIndex: newSeverityIndex,
               aiInsights: {
-                pattern: lastItem.severityIndex < 20 ? 'normal' : lastItem.severityIndex < 40 ? 'mild' : lastItem.severityIndex < 70 ? 'moderate' : 'severe',
-                confidence: 0.8 + Math.random() * 0.15,
-                recommendations: ['Continue monitoring', 'Maintain current routine'],
-                predictedProgression: 'Stable pattern detected'
+                pattern: 'normal', // Force normal pattern for simulation
+                confidence: 0.9 + Math.random() * 0.05, // High confidence in normal pattern
+                recommendations: ['Continue monitoring', 'Maintain current routine', 'Everything looks normal'],
+                predictedProgression: 'Stable and normal pattern detected'
               },
               deviceId: lastItem.deviceId, // Preserve device info
               userId: lastItem.userId // Preserve user info
@@ -228,6 +229,12 @@ export default function Dashboard() {
     setRealTimeEnabled(!realTimeEnabled);
   };
 
+  const handleResetData = () => {
+    setTremorData([]);
+    setStatistics(null);
+    setLastUpdate(new Date());
+  };
+
   // Prepare data for severity distribution chart
   const severityDistributionData = statistics ? [
     { name: 'Normal', value: statistics.severityDistribution.normal, color: SEVERITY_COLORS.normal },
@@ -277,6 +284,14 @@ export default function Dashboard() {
           >
             <RefreshCw className={`w-4 h-4 ${realTimeEnabled ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">{realTimeEnabled ? 'Live Monitoring' : 'Paused'}</span>
+          </button>
+
+          <button
+            onClick={handleResetData}
+            className="flex items-center space-x-2 px-3 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span className="hidden sm:inline">Reset Data</span>
           </button>
 
           <div className="flex space-x-1 sm:space-x-2">

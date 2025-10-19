@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Image from "next/image";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -30,15 +29,6 @@ export default function RootLayout({
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <div className="fixed top-4 left-4 z-50">
-            <Image
-              src="/next.svg"
-              alt="Next.js Logo"
-              width={100}
-              height={24}
-              className="opacity-80"
-            />
-          </div>
           <ThemeToggle />
           <ClientProvider>
             {children}
