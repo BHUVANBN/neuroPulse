@@ -1,0 +1,4 @@
+🚀 NeuroPulse v2 - Clinical Simulator Started
+🔗 Connecting to ws://localhost:8000/ws/emg/sim-patient-001...
+❌ Simulator Error: Multiple exceptions: [Errno 111] Connect call failed ('::1', 8000, 0, 0), [Errno 111] Connect call failed ('127.0.0.1', 8000)
+💡 Tip: Make sure the FastAPI backend is running on port 8000 first.

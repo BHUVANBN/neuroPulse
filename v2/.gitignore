@@ -1,0 +1,50 @@
+# 🛑 NeuroPulse v2 - Git Ignore Patterns
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+build/
+dist/
+*.egg-info/
+clinical_history.json
+backend.log
+
+# Node & Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# PlatformIO & Hardware
+.pio/
+.pioenvs/
+.piolibdeps/
+*.hex
+*.bin
+hardware/lib/
+hardware/.vscode/
+
+# System & OS
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.tmp
+relaunch.log
+launcher.log
+bridge.log
+full_restart.log
+
+# Medical Session Data
+*.dicom
+*.dat
+*.csv
+patient_records/

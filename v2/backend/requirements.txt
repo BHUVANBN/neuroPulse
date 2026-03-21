@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+numpy
+scipy
+scikit-learn
+pandas
+python-multipart
+websockets
+python-dotenv
+asyncpg
+tensorflow-cpu
+pyserial
+websocket-client
